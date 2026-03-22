@@ -1,0 +1,6 @@
+host: go.devcert.net
+cache_max_age: 3600
+paths:
+  /devcert:
+    repo: https://github.com/devcert/devcert
+    vcs: git

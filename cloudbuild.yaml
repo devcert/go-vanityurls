@@ -1,0 +1,23 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--tag=us-central1-docker.pkg.dev/$PROJECT_ID/devcert/go-vanityurls:$COMMIT_SHA', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/devcert/go-vanityurls:$COMMIT_SHA']
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      - run
+      - deploy
+      - go-vanityurls
+      - --image=us-central1-docker.pkg.dev/$PROJECT_ID/devcert/go-vanityurls:$COMMIT_SHA
+      - --allow-unauthenticated
+      - --concurrency=100
+      - --max-instances=5
+      - --memory=128Mi
+      - --platform=managed
+      - --region=us-central1
+      - --timeout=5s
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/devcert/go-vanityurls:$COMMIT_SHA'
+options:
+  logging: CLOUD_LOGGING_ONLY
