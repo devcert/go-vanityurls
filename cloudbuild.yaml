@@ -12,7 +12,7 @@ steps:
       - --image=us-central1-docker.pkg.dev/$PROJECT_ID/devcert/go-vanityurls:$COMMIT_SHA
       - --allow-unauthenticated
       - --concurrency=100
-      - --max-instances=5
+      - --max-instances=3
       - --memory=128Mi
       - --platform=managed
       - --region=us-central1
